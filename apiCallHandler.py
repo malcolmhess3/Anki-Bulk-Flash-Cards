@@ -1,11 +1,6 @@
 import requests
 from bs4 import BeautifulSoup
 
-# res = requests.get("https://jisho.org/api/v1/search/words?keyword=話す")
-# print(res.status_code)
-# print(res)
-# print(res.json())
-
 def getDefinition(word):
     res = requests.get("https://jisho.org/api/v1/search/words?keyword="+word)
     if(res.ok):
@@ -31,7 +26,6 @@ def getExampleSentences(word):
         soup = BeautifulSoup(res.content, "html.parser")
         try:
             firstSentence = soup.find("li", "entry sentence clearfix")
-            # print(firstSentence.prettify())
             jpSentence = firstSentence.find("ul", "japanese_sentence japanese japanese_gothic clearfix")
             jpSentencelines = jpSentence.find_all("li")
         except AttributeError:
